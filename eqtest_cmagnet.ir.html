@@ -1,0 +1,1035 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ارزیابی هوش هیجانی (۱۳۳ آیتم)</title>
+  <style>
+    /* ===== پالت رنگی ملایم و هماهنگ ===== */
+    :root {
+      --bg1: linear-gradient(135deg, #fdcc98 0%, #fbc2eb 100%);
+      --glass: rgba(255, 255, 255, 0.7);
+      --glass-2: rgba(255, 255, 255, 0.5);
+      --accent: #ff726d;
+      --accent-2: #ff9a7c;
+      --text: #2D3748;
+      --muted: #718096;
+      --success: #4caf50;
+      --warning: #ff9800;
+      --danger: #f44336;
+      --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      --card-border: 1px solid rgba(255, 255, 255, 0.4);
+      font-family: "Vazirmatn", "Tahoma", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    body {
+      background: var(--bg1);
+      position: relative;
+    }
+
+    /* کانوا برای افکت پارتیکل */
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      opacity: 0.9;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 28px auto;
+      padding: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .glass {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.5));
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: var(--card-shadow);
+      border: var(--card-border);
+    }
+
+    header {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 22px;
+      color: var(--text);
+    }
+
+    .meta {
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .row-3 {
+      grid-template-columns: 1fr 1fr 220px;
+    }
+
+    .progress {
+      height: 12px;
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress > i {
+      display: block;
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      width: 0%;
+      border-radius: 999px;
+      transition: width 0.5s ease;
+    }
+
+    .card {
+      margin-top: 16px;
+    }
+
+    .question {
+      background: rgba(255, 255, 255, 0.3);
+      padding: 16px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+      transition: transform 0.3s ease;
+    }
+
+    .question:hover {
+      transform: translateY(-3px);
+    }
+
+    .q-text {
+      font-size: 15px;
+      margin-bottom: 12px;
+      color: var(--text);
+      font-weight: 500;
+      line-height: 1.6;
+    }
+
+    .likert {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .likert button {
+      flex: 1;
+      padding: 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      background: rgba(255, 255, 255, 0.7);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      min-width: 90px;
+    }
+
+    .likert button:hover {
+      background: rgba(255, 255, 255, 0.9);
+      transform: translateY(-2px);
+    }
+
+    .likert button.active {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: white;
+      border: none;
+      box-shadow: 0 4px 12px rgba(109, 93, 202, 0.3);
+    }
+
+    .controls {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    footer {
+      margin-top: 24px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    table th, table td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px dashed rgba(0, 0, 0, 0.08);
+    }
+
+    table th {
+      background-color: rgba(255, 255, 255, 0.5);
+      font-weight: 600;
+    }
+
+    .chart-wrap {
+      height: 360px;
+      margin: 16px 0;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 20px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: white;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(109, 93, 202, 0.3);
+      transition: all 0.3s ease;
+      font-weight: 600;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 25px rgba(109, 93, 202, 0.4);
+    }
+
+    .btn.secondary {
+      background: transparent;
+      border: 2px solid rgba(255, 255, 255, 0.7);
+      color: var(--text);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .btn.secondary:hover {
+      background: rgba(255, 255, 255, 0.2);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .advice-card {
+      background: rgba(255, 255, 255, 0.8);
+      padding: 16px;
+      border-radius: 12px;
+      margin-bottom: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    .advice-title {
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .advice-list {
+      list-style-type: disc;
+      padding-right: 20px;
+      color: var(--muted);
+    }
+
+    /* انیمیشن‌های ساده */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-in {
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    /* responsive */
+    @media (max-width: 860px) {
+      .row-3 {
+        grid-template-columns: 1fr;
+      }
+      
+      header {
+        flex-direction: column;
+      }
+      
+      .likert button {
+        min-width: 70px;
+        font-size: 12px;
+      }
+
+      .chart-wrap {
+        height: 280px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- کانوا برای افکت پارتیکل -->
+  <div id="particles-js"></div>
+  
+  <div class="container">
+    <header>
+      <div>
+        <h1>EQ - ارزیابی هوش هیجانی (۱۳۳ آیتم)</h1>
+        <div class="meta">نسخهٔ غیررسمی و آموزشی — جهت خودشناسی</div>
+      </div>
+    </header>
+
+    <div class="glass">
+      <div class="card" id="intro">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div style="max-width:70%">
+            <p class="meta" style="margin:0 0 12px 0;color:var(--muted)">این تست صرفا جهت ارزیابی شخصی طراحی شده ، برای نتیجه علمی و اصولی حتما به متخصص های مربوطه مراجعه فرمایید </p>
+            <div class="progress" aria-hidden><i id="progbar" style="width:0%"></i></div>
+            <div style="margin-top:8px;font-size:14px;color:var(--muted)"><span id="answered">0</span> / 133 پاسخ داده شده</div>
+          </div>
+          <div style="text-align:left">
+            <button class="btn" id="startBtn">شروع ارزیابی</button>
+            <button class="btn secondary" id="resetBtn">بازنشانی</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="surveyArea" style="margin-top:20px;display:none"></div>
+
+      <div id="reportArea" style="margin-top:20px;display:none"></div>
+
+      <div style="margin-top:16px;display:flex;gap:10px;justify-content:flex-end">
+        <button class="btn secondary" id="exportBtn" style="display:none">دانلود PDF</button>
+      </div>
+    </div>
+
+    <footer>
+      طراحی، ساخت و برنامه نویسی توسط رضا حسین پور - 2025
+    </footer>
+  </div>
+
+  <!-- اسکریپت particles.js برای افکت پس‌زمینه -->
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  
+  <!-- Chart.js برای نمودارهای حرفه‌ای -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4"></script>
+
+  <!-- ===== اسکریپت: داده‌های ساختار و 133 آیتم ===== -->
+  <script>
+  /* ===== ساختار مقیاس‌ها و زیرمقیاس‌ها =====
+     composite: id, name
+     subscales: id, name, compositeId
+     counts: number of items per subscale (جمع باید 133) */
+  const STRUCTURE = [
+    { id:'intra', name:'مقیاس ترکیبی درون‌فردی', subs:[
+      {id:'sr', name:'خوداحترامی (Self-Regard)'},
+      {id:'esa', name:'خودآگاهی عاطفی (Emotional Self-Awareness)'},
+      {id:'asr', name:'ابراز وجود (Assertiveness)'},
+      {id:'ind', name:'استقلال (Independence)'},
+      {id:'sac', name:'خودشکوفایی (Self-Actualization)'},
+    ]},
+    { id:'inter', name:'مقیاس ترکیبی میان‌فردی', subs:[
+      {id:'emp', name:'همدلی (Empathy)'},
+      {id:'soc', name:'مسئولیت اجتماعی (Social Responsibility)'},
+      {id:'ipr', name:'روابط میان‌فردی (Interpersonal Relationships)'},
+    ]},
+    { id:'stress', name:'مقیاس ترکیبی مدیریت استرس', subs:[
+      {id:'tol', name:'تحمل استرس (Stress Tolerance)'},
+      {id:'imp', name:'کنترل تکانه (Impulse Control)'},
+    ]},
+    { id:'adapt', name:'مقیاس ترکیبی سازگاری', subs:[
+      {id:'rea', name:'آزمون واقعیت (Reality Testing)'},
+      {id:'fle', name:'انعطاف‌پذیری (Flexibility)'},
+      {id:'prb', name:'حل مسئله (Problem Solving)'},
+    ]},
+    { id:'mood', name:'مقیاس ترکیبی خلق عمومی', subs:[
+      {id:'opt', name:'خوش‌بینی (Optimism)'},
+      {id:'hap', name:'شادی (Happiness)'},
+    ]},
+  ];
+
+  // تخصیص تعداد آیتم‌ها: همه زیرمقیاس‌ها 9 آیتم هستند به جز opt و hap که 8 آیتم دارند -> مجموع = 133
+  const SUBCOUNTS = {
+    sr:9, esa:9, asr:9, ind:9, sac:9,
+    emp:9, soc:9, ipr:9,
+    tol:9, imp:9,
+    rea:9, fle:9, prb:9,
+    opt:8, hap:8
+  };
+
+  // تولید آیتم‌های اصیل (فارسی) برای هر زیرمقیاس
+  const SUB_ITEMS = {
+    sr:[
+      "من از توانایی‌ها و ارزش‌های خود آگاه و راضی هستم.",
+      "نسبت به خودم احساس احترام و ارزشمندی می‌کنم.",
+      "می‌پذیرم که انسانم و اشتباه می‌کنم، بدون کاهش ارزش خویش.",
+      "زمانی که دربارهٔ خودم فکر می‌کنم، احساس قابل قبولی دارم.",
+      "در تصمیم‌گیری‌ها، به قضاوت خود اعتماد دارم.",
+      "وقتی دیگران نظرات من را نقد می‌کنند، هویت خود را حفظ می‌کنم.",
+      "خودم را با دیگران به‌طور سازنده مقایسه می‌کنم، نه به‌صورت تخریبی.",
+      "از دستاوردهایم احساس غرور سالم دارم.",
+      "می‌توانم نقاط قوت و ضعف خود را بدون سرزنش تشخیص دهم."
+    ],
+    esa:[
+      "من اغلب از احساسات درونی‌ام آگاه هستم.",
+      "می‌توانم احساساتم را به‌وضوح نام‌گذاری کنم.",
+      "آگاهانه توجه می‌کنم که چه چیزی باعث احساس من می‌شود.",
+      "حس‌های بدنی مرتبط با هیجان‌هایم را تشخیص می‌دهم.",
+      "می‌فهمم که احساساتم چگونه رفتارم را تحت تأثیر قرار می‌دهد.",
+      "می‌توانم تغییرات خلقی‌ام را سریع‌تر از گذشته ببینم.",
+      "با خودم صادقانه دربارهٔ احساساتم صحبت می‌کنم.",
+      "وقتی دچار هیجان قوی می‌شوم، می‌دانم منشأ آن چیست.",
+      "می‌توانم احساسات پیچیده را هم تشخیص دهم."
+    ],
+    asr:[
+      "می‌توانم درخواست‌ها و نیازهایم را به‌طور مستقیم بیان کنم.",
+      "در بحث‌ها از حقوق خود محافظت می‌کنم بدون پرخاشگری.",
+      "وقتی لازم باشد، قاطعانه 'نه' می‌گویم.",
+      "موقعیت‌های دشوار را با صداقت و احترام مطرح می‌کنم.",
+      "افکار و احساساتم را بدون خجلالت به دیگران منتقل می‌کنم.",
+      "در بیان مخالفت‌هایم منطقی و محکم هستم.",
+      "می‌توانم حق خود را بدون آسیب به روابط پیگیری کنم.",
+      "در جمع وقتی نظر دارم، آن را مطرح می‌کنم.",
+      "در محیط کار دربارهٔ نیازهایم شفاف صحبت می‌کنم."
+    ],
+    ind:[
+      "من می‌توانم بدون اتکا به دیگران تصمیم بگیرم.",
+      "در برابر فشار گروه مقاومت می‌کنم و انتخاب شخصی دارم.",
+      "از استقلال فکری و عملی‌ام لذت می‌برم.",
+      "برای مسائل شخصی‌ام به دنبال راه‌حل مستقل هستم.",
+      "می‌توانم مسئولیت‌های خود را به‌تنهایی بر دوش گیرم.",
+      "اگر لازم باشد، به‌تنهایی پروژه‌ای را تا پایان انجام می‌دهم.",
+      "در کارها روی معیارهای خودم تمرکز می‌کنم، نه فقط نظر دیگران.",
+      "خودم را قادر به سازگاری در محیط‌های جدید می‌بینم.",
+      "در برابر وابستگی‌ بی‌مورد مرز مشخصی دارم."
+    ],
+    sac:[
+      "در پی رشد و تحقق توانایی‌های درونی‌ام هستم.",
+      "راه‌هایی برای توسعه شخصی‌ام به‌صورت مداوم جستجو می‌کنم.",
+      "اهداف معناداری دارم که مرا به جلو می‌رانند.",
+      "دوست دارم بهترین نسخهٔ خود باشم.",
+      "با دیدن پیشرفت شخصی‌ام انگیزه می‌گیرم.",
+      "آماده‌ام فرصت‌های یادگیری جدید را امتحان کنم.",
+      "برای تحقق پتانسیل‌هایم تلاش مستمر دارم.",
+      "به انگیزه‌های بلندمدت زندگی‌ام متعهد هستم.",
+      "طی زمان به رشد و تکامل خود افتخار می‌کنم."
+    ],
+    emp:[
+      "من نسبت به احساسات دیگران حساس هستم.",
+      "می‌توانم نشانه‌های عاطفی دیگران را تشخیص دهم.",
+      "هنگام گفتگو با دیگران، به دیدگاه آن‌ها گوش می‌دهم.",
+      "می‌توانم خود را به‌جای دیگران قرار دهم تا بهتر درک شوم.",
+      "وقتی دوستان ناراحت‌اند، متوجه شده و حمایت می‌کنم.",
+      "به تأثیر رفتارم بر احساسات دیگران توجه دارم.",
+      "در برخورد با احساسات پیچیدهٔ دیگران صبورم.",
+      "می‌دانم چگونه با همدلی به افراد کمک کنم.",
+      "سعی می‌کنم دیدگاه‌های مختلف را بفهمم."
+    ],
+    soc:[
+      "من در برابر جامعه و اطرافیانم احساس مسئولیت می‌کنم.",
+      "قوانین و مقررات جمعی را به‌طور آگاهانه رعایت می‌کنم.",
+      "در فعالیت‌های گروهی مشارکت مؤثر دارم.",
+      "برای کمک کردن به دیگران آماده‌ام.",
+      "رفتارم را با در نظر گرفتن آثار اجتماعی تنظیم می‌کنم.",
+      "برای حفظ اعتماد جمعی تلاش می‌کنم.",
+      "در صورت لزوم برای جمع فداکاری منطقی می‌کنم.",
+      "به نقش‌ها و وظایف اجتماعی خود پایبند هستم.",
+      "در تصمیم‌گیری‌ها تأثیر دیگران را در نظر می‌گیرم."
+    ],
+    ipr:[
+      "می‌توانم روابط صمیمی و حمایتی بسازم و نگه‌دارم.",
+      "برای حفظ رابطه‌ها زمان و انرژی می‌گذارم.",
+      "در روابط نزدیکم صادق و قابل اعتماد هستم.",
+      "حضور عاطفی‌ام در روابط به دیگران کمک می‌کند.",
+      "می‌توانم در تعارض‌ها به راه‌حل سازنده برسم.",
+      "ارتباط کلامی و غیرکلامی‌ام در روابط مؤثر است.",
+      "برای تقویت پیوندهای مهم زندگی‌ام تلاش می‌کنم.",
+      "آماده‌ام برای بهبود روابط کار کنم.",
+      "در روابط عاطفی مرزهای سالم را حفظ می‌کنم."
+    ],
+    tol:[
+      "در موقعیت‌های پراسترس معمولاً آرام می‌مانم.",
+      "می‌توانم فشارهای کاری را بدون تسلیم شدن تحمل کنم.",
+      "در مواجهه با بحران‌ها سریعاً از کنترل خارج نمی‌شوم.",
+      "برای کاهش استرس از راهکارهای مؤثر استفاده می‌کنم.",
+      "نسبت به چالش‌ها رویکردی منطقی دارم.",
+      "می‌دانم چگونه در موقعیت دشوار خودم را بازسازی کنم.",
+      "توانم در برابر فشارهای طولانی حفظ شود.",
+      "از تجربه‌های استرس‌زا درس می‌گیرم.",
+      "در برخورد با فشارها انعطاف نشان می‌دهم."
+    ],
+    imp:[
+      "قبل از عمل کردن، به پیامدها فکر می‌کنم.",
+      "می‌توانم خواسته‌های فوری را کنترل کنم.",
+      "در تصمیم‌گیری عجولانه نمی‌شوم.",
+      "وقتی عصبانی‌ام، از واکنش فوری پرهیز می‌کنم.",
+      "می‌توانم در برابر وسوسه‌های لحظه‌ای مقاومت کنم.",
+      "رفتارم را با اهداف طولانی‌مدت هماهنگ می‌کنم.",
+      "در محیط کار از تصمیمات فوری که مخاطره‌آمیزند پرهیز می‌کنم.",
+      "مهار هیجانات را برای اتخاذ تصمیم بهتر حفظ می‌کنم.",
+      "در انتخاب‌های مالی یا رفتاری تعمق دارم."
+    ],
+    rea:[
+      "من دید واقع‌گرایانه‌ای نسبت به شرایط دارم.",
+      "می‌توانم بین احساسات و واقعیت تفکیک قائل شوم.",
+      "در بررسی شواهد برای تصمیم‌گیری دقیق هستم.",
+      "از برداشت‌های کاملاً ذهنی پرهیز می‌کنم.",
+      "می‌توانم دریافت‌هایم را با حقایق تطبیق دهم.",
+      "در مواجهه با شایعات به دنبال اطلاعات موثق می‌گردم.",
+      "واقعیت‌ها را به‌عنوان مبنای عمل می‌پذیرم.",
+      "در تحلیل وضعیت‌ها به دنبال داده‌ها هستم.",
+      "توانایی حل اختلاف را با بررسی واقعیات دارم."
+    ],
+    fle:[
+      "من می‌توانم برنامه‌ها را در صورت نیاز تغییر دهم.",
+      "با تغییرات ناگهانی به‌سرعت سازگار می‌شوم.",
+      "در موقعیت‌های جدید، نگرش باز دارم.",
+      "راهکارهای جایگزین را در نظر می‌گیرم.",
+      "من از بازخورد دیگران برای تنظیم رفتارم استفاده می‌کنم.",
+      "انعطاف در زمان‌بندی و اولویت‌بندی دارم.",
+      "می‌توانم نقش‌ها یا مسئولیت‌ها را تعدیل کنم.",
+      "در مواجهه با ناپایداری مقاومتم را حفظ می‌نم.",
+      "توانایی بازسازی برنامه‌ها را دارم."
+    ],
+    prb:[
+      "برای مسائل، راه‌حل‌های منطقی و ساختاریافته پیدا می‌کنم.",
+      "گام‌به‌گام مسائل را تحلیل می‌کنم.",
+      "برای حل مشکل اطلاعات لازم را جمع‌آوری می‌کنم.",
+      "خلاقیت را در کنار منطق برای حل استفاده می‌کنم.",
+      "تصمیماتم را بر اساس تجزیه و تحلیل می‌گیرم.",
+      "برای مشکلات پیچیده تقسیم‌بندی و اولویت می‌کنم.",
+      "از تجربهٔ گذشته برای حل مسائل جدید بهره می‌گیرم.",
+      "می‌توانم نتایج احتمالی راه‌حل‌ها را پیش‌بینی کنم.",
+      "در حل مسئله از دیدگاه‌های مختلف استفاده می‌کنم."
+    ],
+    opt:[
+      "برای آینده نسبت به دستیابی به هدف‌ها امیدوارم.",
+      "در مواجهه با شکست‌ها امیدم را حفظ می‌کنم.",
+      "باور دارم که تلاش می‌تواند نتیجهٔ مثبتی داشته باشد.",
+      "در شرایط دشوار نیمهٔ روشن را هم می‌بینم.",
+      "به دنبال فرصت‌ها در موقعیت‌های چالش‌زا هستم。",
+      "قادر به تجدید امید پس از ناکامی هستم。",
+      "امید من به آینده تأثیر مثبتی بر انگیزه‌ام دارد。",
+      "در برنامه‌ریزی‌ها با دید مثبت پیش می‌روم."
+    ],
+    hap:[
+      "در بیشتر روزها احساس شادی و رضایت دارم.",
+      "از فعالیت‌های روزانه‌ام لذت می‌برم.",
+      "روابط اجتماعی‌ام به شادی من کمک می‌کنند.",
+      "به‌راحتی لحظات خوش را تجربه می‌کنم.",
+      "قدردانی از داشته‌هایم برایم آسان است.",
+      "می‌توانم در شرایط عادی خوشحالی را حفظ کنم。",
+      "عوامل کوچک روزمره باعث خوشحالی‌ام می‌شود。",
+      "شادی را به عنوان بخشی از سبک زندگی‌ام می‌بینم."
+    ]
+  };
+
+  // بررسی مجموع آیتم‌ها = 133
+  let totalItems = 0;
+  for(const k in SUB_ITEMS){ totalItems += SUB_ITEMS[k].length; }
+  if(totalItems !== 133){
+    console.warn("تعداد آیتم‌ها برابر نیست با 133 — فعلی:", totalItems);
+  }
+
+  // ساختار flat از آیتم‌ها: هر آیتم {id, sub, comp, text}
+  const ITEMS = [];
+  let qid = 1;
+  for(const comp of STRUCTURE){
+    for(const sub of comp.subs){
+      const arr = SUB_ITEMS[sub.id];
+      if(!arr) continue;
+      arr.forEach(txt => {
+        ITEMS.push({ id: 'Q'+(qid++), composite: comp.id, compositeName: comp.name, subscale: sub.id, subscaleName: sub.name, text: txt });
+      });
+    }
+  }
+
+  // توصیه‌های خاص برای هر زیرمقیاس (برای بخش توسعه فردی)
+  const ADVICE = {
+    sr: [
+      "هر روز سه نقطه قوت خود را یادداشت کنید تا خوداحترامی‌تان تقویت شود.",
+      "تمرین آینه: به خودتان نگاه کنید و جملات مثبت بگویید.",
+      "اهداف کوچک دست‌یافتنی تنظیم کنید و پس از دستیابی جشن بگیرید."
+    ],
+    esa: [
+      "روزانه احساسات خود را در یک دفترچه ثبت کنید و دلایل آن‌ها را بررسی کنید.",
+      "مدیتیشن ذهن‌آگاهی برای افزایش آگاهی از هیجانات تمرین کنید.",
+      "با دوستان نزدیک درباره احساساتتان صحبت کنید تا بهتر آن‌ها را بشناسید."
+    ],
+    asr: [
+      "در موقعیت‌های روزمره، تمرین کنید نظراتتان را قاطعانه بیان کنید.",
+      "نقش‌بازی برای سناریوهای ابراز وجود انجام دهید.",
+      "کتاب‌هایی درباره ارتباط قاطع بخوانید و نکات را اعمال کنید."
+    ],
+    ind: [
+      "تصمیم‌های کوچک را بدون مشورت بگیرید تا استقلالتان افزایش یابد.",
+      "سرگرمی‌های فردی را پیگیری کنید که نیاز به دیگران نداشته باشد.",
+      "مرزهای شخصی‌تان را در روابط مشخص کنید."
+    ],
+    sac: [
+      "اهداف بلندمدت شخصی تعریف کنید و گام‌های روزانه برای آن‌ها بردارید.",
+      "دوره‌های آموزشی آنلاین برای توسعه مهارت‌ها شرکت کنید.",
+      "پیشرفت‌هایتان را ماهانه ارزیابی کنید."
+    ],
+    emp: [
+      "هنگام گفتگو، فعالانه گوش دهید و احساسات طرف مقابل را تکرار کنید.",
+      "کتاب‌های داستانی بخوانید تا دیدگاه‌های مختلف را تجربه کنید.",
+      "در موقعیت‌های اجتماعی، خود را جای دیگران بگذارید."
+    ],
+    soc: [
+      "در فعالیت‌های داوطلبانه شرکت کنید تا مسئولیت اجتماعی‌تان افزایش یابد.",
+      "قوانین گروهی را آگاهانه رعایت کنید و دیگران را تشویق کنید.",
+      "در تصمیم‌گیری‌ها تأثیر بر جامعه را در نظر بگیرید."
+    ],
+    ipr: [
+      "زمان منظمی برای ارتباط با دوستان و خانواده اختصاص دهید.",
+      "در تعارض‌ها، به دنبال راه‌حل برد-برد باشید.",
+      "مهارت‌های ارتباطی را با تمرین بهبود بخشید."
+    ],
+    tol: [
+      "تکنیک‌های تنفس عمیق برای مدیریت استرس تمرین کنید.",
+      "ورزش منظم برای افزایش تحمل فشار انجام دهید.",
+      "لیست اولویت‌ها برای جلوگیری از overload تنظیم کنید."
+    ],
+    imp: [
+      "قبل از واکنش، تا 10 بشمارید تا تکانه‌ها کنترل شوند.",
+      "اهداف طولانی‌مدت را یادآوری کنید تا تصمیمات فوری را مهار کنید.",
+      "ژورنالینگ برای بررسی الگوهای تکانه‌ای استفاده کنید."
+    ],
+    rea: [
+      "برای تصمیم‌ها، شواهد واقعی جمع‌آوری کنید نه فقط احساسات.",
+      "با دوستان درباره برداشت‌هایتان مشورت کنید تا واقعیت‌سنجی شود.",
+      "از اخبار موثق برای جلوگیری از شایعات استفاده کنید."
+    ],
+    fle: [
+      "در برنامه‌ریزی، گزینه‌های جایگزین را همیشه در نظر بگیرید.",
+      "با تغییرات کوچک شروع کنید تا انعطاف‌پذیری افزایش یابد.",
+      "بازخورد دیگران را برای تنظیم رویکردها بپذیرید."
+    ],
+    prb: [
+      "مسائل را به گام‌های کوچک تقسیم کنید و یکی یکی حل کنید.",
+      "ابزارهای حل مسئله مانند brainstorming استفاده کنید.",
+      "از تجربیات گذشته برای مشکلات جدید درس بگیرید."
+    ],
+    opt: [
+      "هر روز سه چیز مثبت آینده را تصور کنید.",
+      "پس از شکست‌ها، درس‌ها را استخراج کنید نه ناامیدی.",
+      "با افراد خوش‌بین معاشرت کنید."
+    ],
+    hap: [
+      "فعالیت‌های لذت‌بخش روزانه را برنامه‌ریزی کنید.",
+      "قدردانی روزانه از داشته‌ها تمرین کنید.",
+      "روابط مثبت را تقویت کنید تا شادی افزایش یابد."
+    ]
+  };
+
+  // حالت اجرا
+  const state = { answers: {}, pageIndex:0, pages: [] };
+
+  // صفحه‌بندی: هر صفحه نمایشگر یک زیرمقیاس است (تمرکز)
+  function buildPages(){
+    const pages = [];
+    for(const comp of STRUCTURE){
+      for(const sub of comp.subs){
+        const items = ITEMS.filter(it => it.subscale === sub.id);
+        pages.push({ composite: comp.id, compositeName: comp.name, sub: sub.id, subName: sub.name, items });
+      }
+    }
+    state.pages = pages;
+  }
+
+  buildPages();
+
+  // ===== رندر صفحات سوال =====
+  const surveyArea = document.getElementById('surveyArea');
+  const reportArea = document.getElementById('reportArea');
+  const progbar = document.getElementById('progbar');
+  const answeredEl = document.getElementById('answered');
+
+  function renderPage(idx){
+    const page = state.pages[idx];
+    if(!page) return;
+    surveyArea.innerHTML = '';
+    const title = document.createElement('div');
+    title.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+      <div>
+        <strong style="color:var(--accent)">${page.compositeName}</strong><div style="font-size:14px;color:var(--muted)">${page.subName}</div>
+      </div>
+      <div style="text-align:left">
+        <div style="font-size:14px;color:var(--muted)">صفحه ${idx+1} از ${state.pages.length}</div>
+      </div>
+    </div>`;
+    surveyArea.appendChild(title);
+
+    const list = document.createElement('div');
+    list.className = 'grid';
+    page.items.forEach(it => {
+      const q = document.createElement('div');
+      q.className = 'question';
+      q.innerHTML = `<div class="q-text">${it.text}</div>`;
+      const lik = document.createElement('div');
+      lik.className = 'likert';
+      for(let v=1;v<=5;v++){
+        const b = document.createElement('button');
+        b.textContent = v===1?'هرگز/به‌ندرت': v===2?'به‌ندرت': v===3?'گاهی': v===4?'اغلب':'همیشه/تقریباً همیشه';
+        if(state.answers[it.id] && state.answers[it.id]===v) b.classList.add('active');
+        b.addEventListener('click', ()=> {
+          state.answers[it.id]=v;
+          updateProgress();
+          renderPage(idx); // rerender to show active
+        });
+        lik.appendChild(b);
+      }
+      q.appendChild(lik);
+      list.appendChild(q);
+    });
+    surveyArea.appendChild(list);
+
+    const ctr = document.createElement('div');
+    ctr.className='controls';
+    const left = document.createElement('div');
+    const right = document.createElement('div');
+    const prevBtn = document.createElement('button');
+    prevBtn.className='btn secondary';
+    prevBtn.textContent='صفحه قبلی';
+    prevBtn.disabled = idx===0;
+    prevBtn.addEventListener('click', ()=> { renderPage(idx-1); state.pageIndex=idx-1; });
+
+    const nextBtn = document.createElement('button');
+    nextBtn.className='btn';
+    nextBtn.textContent = idx < state.pages.length-1 ? 'صفحه بعدی' : 'پایان و مشاهده نتایج';
+    nextBtn.addEventListener('click', ()=>{
+      if(idx < state.pages.length-1){
+        renderPage(idx+1); state.pageIndex=idx+1;
+      } else {
+        computeReport();
+      }
+    });
+
+    left.appendChild(prevBtn);
+    right.appendChild(nextBtn);
+    ctr.appendChild(left);
+    ctr.appendChild(right);
+    surveyArea.appendChild(ctr);
+    updateProgress();
+  }
+
+  function updateProgress(){
+    const total = ITEMS.length;
+    const answered = Object.keys(state.answers).length;
+    const pct = Math.round((answered/total)*100);
+    progbar.style.width = pct + '%';
+    answeredEl.textContent = answered + '';
+  }
+
+  // ===== محاسبه نمرات =====
+  function computeReport(){
+    // محاسبه امتیاز خام برای هر زیرمقیاس
+    const bySub = {};
+    const byComp = {};
+    for(const it of ITEMS){
+      if(!bySub[it.subscale]) bySub[it.subscale] = { raw:0, count:0, name: it.subscaleName, comp: it.compositeName };
+      const v = Number(state.answers[it.id]||0);
+      bySub[it.subscale].raw += v;
+      bySub[it.subscale].count += 1;
+    }
+    // کامپوزیت‌ها
+    for(const comp of STRUCTURE){
+      byComp[comp.id] = { raw:0, count:0, name: comp.name };
+      for(const sub of comp.subs){
+        const s = bySub[sub.id];
+        if(s){
+          byComp[comp.id].raw += s.raw;
+          byComp[comp.id].count += s.count;
+        }
+      }
+    }
+    // کلی
+    const totalCount = ITEMS.length;
+    const totalRaw = Object.values(bySub).reduce((a,b)=>a+b.raw,0);
+
+    // تبدیل نمایشی به نمره استاندارد (میانگین=100,SD=15)
+    function toStandard(raw, count){
+      const minRaw = count*1;
+      const maxRaw = count*5;
+      const p = (raw - minRaw) / (maxRaw - minRaw || 1); // 0..1
+      const z = (p - 0.5) * 2; // -1 .. +1
+      const std = Math.round(100 + z*15);
+      return Math.max(40, Math.min(160, std)); // محدوده نمایشی
+    }
+
+    const subResults = {};
+    for(const k in bySub){
+      const s = bySub[k];
+      subResults[k] = { raw: s.raw, avg: (s.raw / (s.count ||1)).toFixed(2), standard: toStandard(s.raw,s.count), name: s.name, comp: s.comp };
+    }
+    const compResults = {};
+    for(const k in byComp){
+      const c = byComp[k];
+      compResults[k] = { raw: c.raw, avg: (c.raw / (c.count ||1)).toFixed(2), standard: toStandard(c.raw,c.count), name: c.name };
+    }
+    const totalStandard = toStandard(totalRaw, totalCount);
+
+    const omissionRate = 1 - (Object.keys(state.answers).length/ITEMS.length);
+    const answersVals = Object.values(state.answers).map(Number);
+    const meanAns = answersVals.length? (answersVals.reduce((a,b)=>a+b,0)/answersVals.length):0;
+    const variance = answersVals.length? (answersVals.reduce((a,b)=>a+Math.pow(b-meanAns,2),0)/answersVals.length):0;
+    const inconsistencyIndex = Math.max(0,1 - Math.min(1, variance/2)); // 0..1 demo
+
+    // تولید گزارش HTML
+    renderReport({ subResults, compResults, total: { raw: totalRaw, standard: totalStandard, avg: (totalRaw/totalCount).toFixed(2) }, omissionRate, inconsistencyIndex });
+  }
+
+  // ===== رندر گزارش حرفه‌ای‌تر =====
+  function renderReport(data){
+    surveyArea.style.display='none';
+    reportArea.style.display='block';
+    reportArea.innerHTML = '';
+    reportArea.classList.add('fade-in');
+
+    // عنوان و پروفایل کلی
+    const titleCard = document.createElement('div');
+    titleCard.className='glass';
+    titleCard.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center">
+      <div>
+        <h2 style="margin:0;color:var(--accent)">گزارش نتایج — پروفایل هوش هیجانی</h2>
+      </div>
+      <div style="text-align:left">
+        <div style="font-size:14px;color:var(--muted)">امتیاز کل نمایشی: <strong style="color:${getScoreColor(data.total.standard)}">${data.total.standard}</strong></div>
+        <div style="font-size:13px;color:var(--muted)">نرخ حذف: ${(data.omissionRate*100).toFixed(1)}%</div>
+      </div>
+    </div>`;
+    reportArea.appendChild(titleCard);
+
+    // نمودار رادار برای کامپوزیت‌ها با Chart.js
+    const radarCard = document.createElement('div');
+    radarCard.className='glass';
+    radarCard.style.marginTop='16px';
+    radarCard.innerHTML = `<div style="font-weight:600;margin-bottom:12px;color:var(--accent)">پروفایل مقیاس‌های ترکیبی (نمرات استاندارد)</div><div class="chart-wrap"><canvas id="radarChart"></canvas></div>`;
+    reportArea.appendChild(radarCard);
+    drawRadarChart(Object.values(data.compResults).map(c => c.name.split(' (')[0]), Object.values(data.compResults).map(c => c.standard));
+
+    // نمودار بار برای زیرمقیاس‌ها
+    const barCard = document.createElement('div');
+    barCard.className='glass';
+    barCard.style.marginTop='16px';
+    barCard.innerHTML = `<div style="font-weight:600;margin-bottom:12px;color:var(--accent)">پروفایل زیرمقیاس‌ها (نمرات استاندارد)</div><div class="chart-wrap"><canvas id="barChart"></canvas></div>`;
+    reportArea.appendChild(barCard);
+    drawBarChart(Object.values(data.subResults).map(s => s.name.split(' (')[0]), Object.values(data.subResults).map(s => s.standard));
+
+    // جدول جزئیات
+    const tbCard = document.createElement('div');
+    tbCard.className='glass';
+    tbCard.style.marginTop='16px';
+    let tableHTML = `<div style="font-weight:600;margin-bottom:12px;color:var(--accent)">جزئیات نمرات</div><table><thead><tr><th>مقیاس ترکیبی</th><th>زیرمقیاس</th><th>میانگین پاسخ</th><th>نمره استاندارد</th></tr></thead><tbody>`;
+    for(const comp of STRUCTURE){
+      for(const sub of comp.subs){
+        const r = data.subResults[sub.id];
+        if(!r) continue;
+        tableHTML += `<tr><td>${comp.name}</td><td>${r.name}</td><td>${r.avg} / 5</td><td style="color:${getScoreColor(r.standard)}">${r.standard}</td></tr>`;
+      }
+    }
+    tableHTML += `</tbody></table>`;
+    tbCard.innerHTML += tableHTML;
+    reportArea.appendChild(tbCard);
+
+    // بخش توسعه فردی با توصیه‌های سفارشی
+    const actionCard = document.createElement('div');
+    actionCard.className='glass';
+    actionCard.style.marginTop='16px';
+    actionCard.innerHTML = `<div style="font-weight:600;margin-bottom:12px;color:var(--accent)">برنامه توسعه فردی شخصی‌سازی‌شده</div>`;
+    const lowSubs = Object.entries(data.subResults)
+      .sort((a,b) => a[1].standard - b[1].standard)
+      .slice(0,3); // 3 زیرمقیاس پایین‌ترین
+    lowSubs.forEach(([id, res]) => {
+      const adv = document.createElement('div');
+      adv.className = 'advice-card';
+      adv.innerHTML = `<div class="advice-title">${res.name} (نمره: ${res.standard}) - پیشنهادها:</div><ul class="advice-list">`;
+      (ADVICE[id] || []).forEach(tip => {
+        adv.innerHTML += `<li>${tip}</li>`;
+      });
+      adv.innerHTML += `</ul>`;
+      actionCard.appendChild(adv);
+    });
+    actionCard.innerHTML += `<p style="color:var(--muted);margin-top:12px">این توصیه‌ها بر اساس نمرات پایین‌تر شما شخصی‌سازی شده‌اند. برای پیشرفت، اهداف SMART (Specific, Measurable, Achievable, Relevant, Time-bound) تعریف کنید و پیشرفت را پیگیری کنید. در صورت نیاز، با متخصص مشورت کنید.</p>`;
+    reportArea.appendChild(actionCard);
+
+    // کنترل‌ها
+    const ctr = document.createElement('div');
+    ctr.style.display='flex';ctr.style.justifyContent='space-between';ctr.style.marginTop='16px';
+    const backBtn = document.createElement('button'); backBtn.className='btn secondary'; backBtn.textContent='بازگشت به پرسشنامه';
+    backBtn.addEventListener('click', ()=> { reportArea.style.display='none'; surveyArea.style.display='block'; renderPage(state.pageIndex); });
+    const pdfBtn = document.getElementById('exportBtn'); pdfBtn.style.display='inline-block';
+    ctr.appendChild(backBtn);
+    reportArea.appendChild(ctr);
+  }
+
+  // رنگ‌بندی نمرات
+  function getScoreColor(score) {
+    if (score >= 115) return 'var(--success)';
+    if (score >= 85) return 'var(--warning)';
+    return 'var(--danger)';
+  }
+
+  // پالت رنگی برای زیرمقیاس‌ها
+  const SUBSCALE_COLORS = [
+    '#FF6F61', '#6B7280', '#10B981', '#F59E0B', '#3B82F6',
+    '#EC4899', '#8B5CF6', '#EF4444', '#14B8A6', '#D97706',
+    '#7C3AED', '#F97316', '#06B6D4', '#6366F1', '#F43F5E'
+  ];
+
+  // رسم نمودار رادار با Chart.js
+  function drawRadarChart(labels, values) {
+    const ctx = document.getElementById('radarChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'radar',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'نمرات استاندارد',
+          data: values,
+          backgroundColor: 'rgba(255, 114, 109, 0.2)',
+          borderColor: 'rgba(255, 114, 109, 1)',
+          borderWidth: 2,
+          pointBackgroundColor: 'rgba(255, 114, 109, 1)',
+        }]
+      },
+      options: {
+        scales: {
+          r: {
+            suggestedMin: 40,
+            suggestedMax: 160,
+            ticks: { stepSize: 20 },
+            pointLabels: { font: { size: 14 } }
+          }
+        },
+        plugins: {
+          legend: { display: false }
+        }
+      }
+    });
+  }
+
+  // رسم نمودار بار با Chart.js و رنگ‌های متمایز
+  function drawBarChart(labels, values) {
+    const ctx = document.getElementById('barChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'نمرات استاندارد',
+          data: values,
+          backgroundColor: SUBSCALE_COLORS.slice(0, labels.length), // اختصاص رنگ متمایز به هر زیرمقیاس
+          borderColor: 'rgba(255, 255, 255, 0.8)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            suggestedMin: 40,
+            suggestedMax: 160,
+            ticks: { stepSize: 20 }
+          }
+        },
+        plugins: {
+          legend: { display: false }
+        },
+        responsive: true,
+        maintainAspectRatio: false
+      }
+    });
+  }
+
+  // ===== کنترل‌های UI اولیه =====
+  document.getElementById('startBtn').addEventListener('click', ()=> {
+    document.getElementById('intro').style.display='none';
+    surveyArea.style.display='block';
+    renderPage(0);
+    state.pageIndex=0;
+  });
+  document.getElementById('resetBtn').addEventListener('click', ()=> {
+    state.answers = {}; state.pageIndex=0;
+    updateProgress();
+    surveyArea.innerHTML=''; reportArea.innerHTML=''; reportArea.style.display='none';
+    document.getElementById('intro').style.display='block';
+    document.getElementById('exportBtn').style.display='none';
+  });
+
+  // دانلود PDF با html2canvas و jsPDF ساده
+  document.getElementById('exportBtn').addEventListener('click', async ()=> {
+    const btn = document.getElementById('exportBtn'); btn.textContent='در حال آماده‌سازی...'; btn.disabled=true;
+    // بارگذاری کتابخانه‌ها از CDN
+    await loadScript('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js');
+    await loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js');
+    const { jsPDF } = window.jspdf;
+    const canvas = await html2canvas(reportArea, { scale: 2, useCORS:true, allowTaint: true });
+    const imgData = canvas.toDataURL('image/png');
+    const pdf = new jsPDF({ unit:'pt', format:'a4', orientation: 'portrait' });
+    const pageW = pdf.internal.pageSize.getWidth();
+    const pageH = pdf.internal.pageSize.getHeight();
+    const iw = canvas.width, ih = canvas.height;
+    const ratio = Math.min(pageW/iw, pageH/ih);
+    const iw2 = iw*ratio, ih2 = ih*ratio;
+    pdf.addImage(imgData,'PNG',(pageW-iw2)/2,20,iw2,ih2);
+    const fname = `EQi_personal_${new Date().getTime()}.pdf`;
+    pdf.save(fname);
+    btn.textContent='دانلود PDF'; btn.disabled=false;
+  });
+
+  function loadScript(src){ return new Promise((res,rej)=>{
+    const s=document.createElement('script'); s.src=src; s.onload=res; s.onerror=rej; document.head.appendChild(s);
+  });}
+  
+  // راه‌اندازی افکت پارتیکل
+  document.addEventListener('DOMContentLoaded', function() {
+    particlesJS('particles-js', {
+      particles: {
+        number: { value: 120, density: { enable: true, value_area: 800 } },
+        color: { value: "#ffffff" },
+        shape: { type: "circle" },
+        opacity: { value: 0.9, random: true },
+        size: { value: 6, random: true },
+        line_linked: { enable: false },
+        move: {
+          enable: true,
+          speed: 2.5,
+          direction: "none",
+          random: true,
+          straight: false,
+          out_mode: "out",
+          bounce: false
+        }
+      },
+      interactivity: {
+        detect_on: "canvas",
+        events: {
+          onhover: { enable: true, mode: "bubble" },
+          onclick: { enable: true, mode: "repulse" },
+          resize: true
+        },
+        modes: {
+          bubble: { distance: 100, size: 4, duration: 2, opacity: 0.1, speed: 3 },
+          repulse: { distance: 100, duration: 0.4 }
+        }
+      },
+      retina_detect: true
+    });
+  });
+  </script>
+</body>
+</html>
